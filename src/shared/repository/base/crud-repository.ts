@@ -2,16 +2,16 @@ import * as AWS from 'aws-sdk';
 import * as bluebird from 'bluebird';
 
 const {
-  ENV_AWS_REGION,
-  ENV_AWS_ACCESS_KEY_ID,
-  ENV_AWS_SECRET_ACCESS_KEY
+  REGION,
+  ACCESS_KEY_ID,
+  SECRET_ACCESS_KEY
 } = process.env;
 
 AWS.config.setPromisesDependency(bluebird);
 AWS.config.update({
-  region: ENV_AWS_REGION,
-  accessKeyId: ENV_AWS_ACCESS_KEY_ID,
-  secretAccessKey: ENV_AWS_SECRET_ACCESS_KEY
+  region: REGION,
+  accessKeyId: ACCESS_KEY_ID,
+  secretAccessKey: SECRET_ACCESS_KEY
 });
 
 export abstract class Mapper<T> {

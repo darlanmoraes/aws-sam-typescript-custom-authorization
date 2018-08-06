@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "aws:s3:package": "./node_modules/grunt/bin/grunt package --lambda=$LAMBDA",
-    "aws:s3:deploy": "aws s3 cp ./.compress/lambda-$LAMBDA.zip s3://$BUCKET/sam/ ",
-    "aws:lambda:deploy": "./src/scripts/sam-lambda.sh $ENV $REGION $LAMBDA $BUCKET $ACCESS_KEY_ID $SECRET_ACCESS_KEY",
-    "aws:dynamodb:deploy": "./src/scripts/sam-dynamodb.sh $ENV $REGION $BUCKET"
+    "aws:lambdas:package": "tsc && ./node_modules/grunt/bin/grunt package",
+    "aws:dynamodb:deploy": "./src/scripts/sam-dynamodb.sh $ENV $REGION $BUCKET",
+    "aws:lambdas:deploy": "./src/scripts/sam-lambdas.sh $ENV $REGION $BUCKET $ACCESS_KEY_ID $SECRET_ACCESS_KEY",
+    "aws:gateway:deploy": "./src/scripts/sam-gateway.sh $ENV $REGION $BUCKET",
+    "aws:lambdas:package:deploy": "npm run aws:lambdas:package && npm run aws:lambdas:deploy",
+    "aws:prepare": "npm run aws:dynamodb:deploy && npm run aws:lambdas:deploy && npm run aws:gateway:deploy",
+    "aws:deploy": "npm run aws:lambdas:package && npm run aws:prepare"
   },
   "repository": {
     "type": "git",

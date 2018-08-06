@@ -1,0 +1,36 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS SAM template for Api Gateway
+Parameters:
+  Stage:
+    Type: String
+  Bucket:
+    Type: String
+  Region:
+    Type: String
+Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref Stage
+      DefinitionBody:
+        'Fn::Transform':
+          Name: 'AWS::Include'
+          Parameters:
+            Location: !Join [ "", [ "s3://", !Ref Bucket, "/sam/", !Ref Stage, "/swagger.yaml"] ]
+      Variables:
+        Stage: !Ref Stage
+        Bucket: !Ref Bucket
+        Region: !Ref Region
+Outputs:
+  ApiUrl:
+    Description: URL of our API endpoint
+    Value: !Join
+      - ''
+      - - https://
+        - !Ref ApiGatewayApi
+        - '.execute-api.'
+        - !Ref 'AWS::Region'
+        - '.amazonaws.com/'
+        - !Ref Stage

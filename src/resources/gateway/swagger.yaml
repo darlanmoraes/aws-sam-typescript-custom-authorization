@@ -1,0 +1,87 @@
+swagger: 2.0
+basePath:
+  Fn::Sub: /${Stage}
+info:
+  title:
+    Fn::Sub: ${Stage}-aws-sam-typescript-custom-authorization
+schemes:
+- https
+paths:
+  /comments:
+    get:
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${Region}:${AWS::AccountId}:function:${Stage}-CommentsLambda/invocations"
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 201
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${Region}:${AWS::AccountId}:function:${Stage}-CommentsLambda/invocations"
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
+  /posts:
+    get:
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: 200 response
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${Region}:${AWS::AccountId}:function:${Stage}-PostsLambda/invocations"
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: 201 response
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 201
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${Region}:${AWS::AccountId}:function:${Stage}-PostsLambda/invocations"
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
+definitions:
+  Empty:
+    type: object
+    title: Empty Schema
