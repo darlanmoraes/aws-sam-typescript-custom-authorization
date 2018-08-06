@@ -1,0 +1,39 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS SAM template for Posts Microservice
+Parameters:
+  Stage:
+    Type: String
+  Bucket:
+    Type: String
+  Region:
+    Type: String
+  AccessKeyId:
+    Type: String
+  SecretAccessKey:
+    Type: String
+Globals:
+  Function:
+    Runtime: nodejs8.10
+    Timeout: 180
+    Handler: src/lambdas/posts/handler.execute
+Resources:
+  PostsLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri:
+        Bucket: !Ref Bucket
+        Key: "sam/lambda-posts.zip"
+      FunctionName: !Join [ "", [ !Ref Stage, "-PostsLambda"]]
+      Environment:
+        Variables:
+          REGION: !Ref Region
+          ACCESS_KEY_ID: !Ref AccessKeyId
+          SECRET_ACCESS_KEY: !Ref SecretAccessKey
+  PostsLambdaPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref PostsLambda
+      Principal: "*"

@@ -1,0 +1,33 @@
+{
+  "name": "aws-sam-typescript-custom-authorization",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "aws:s3:package": "./node_modules/grunt/bin/grunt package --lambda=$LAMBDA",
+    "aws:s3:deploy": "aws s3 cp ./.compress/lambda-$LAMBDA.zip s3://$BUCKET/sam/ ",
+    "aws:lambda:deploy": "./src/scripts/sam-lambda.sh $ENV $REGION $LAMBDA $BUCKET $ACCESS_KEY_ID $SECRET_ACCESS_KEY",
+    "aws:dynamodb:deploy": "./src/scripts/sam-dynamodb.sh $ENV $REGION $BUCKET"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/darlanmoraes/aws-sam-typescript-custom-authorization.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/darlanmoraes/aws-sam-typescript-custom-authorization#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "http-status-codes": "^1.3.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.7",
+    "@types/aws-sdk": "^2.7.0",
+    "@types/bluebird": "^3.5.21",
+    "@types/node": "^10.5.1",
+    "grunt": "^1.0.3",
+    "grunt-contrib-compress": "^1.4.3",
+    "typescript": "^2.9.2"
+  }
+}
