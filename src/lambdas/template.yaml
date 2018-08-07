@@ -28,6 +28,12 @@ Resources:
         Bucket: !Ref Bucket
         Key: !Join [ "", [ "sam/", !Ref Stage, "/", !Ref Hash, "-lambda-authorizer.zip"] ]
       FunctionName: !Join [ "", [ !Ref Stage, "-AuthorizerLambda"] ]
+      Environment:
+        Variables:
+          ENV: !Ref Stage
+          REGION: !Ref Region
+          ACCESS_KEY_ID: !Ref AccessKeyId
+          SECRET_ACCESS_KEY: !Ref SecretAccessKey
       Role:
         Fn::Sub: ${AuthorizerLambdaRole.Arn}
   AuthorizerLambdaRole:

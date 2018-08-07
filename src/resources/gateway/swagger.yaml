@@ -5,7 +5,7 @@ info:
   title:
     Fn::Sub: ${Stage}-aws-sam-typescript-custom-authorization
 securityDefinitions:
-  CustomAuthorizer:
+  AuthorizerLambda:
     type: apiKey
     name: Authorization
     in: header
@@ -25,7 +25,7 @@ paths:
       produces:
       - application/json
       security:
-        - CustomAuthorizer: []
+        - AuthorizerLambda: []
       responses:
         '200':
           description: 200 response
@@ -46,7 +46,7 @@ paths:
       produces:
       - application/json
       security:
-        - CustomAuthorizer: []
+        - AuthorizerLambda: []
       responses:
         '201':
           description: 201 response

@@ -1,4 +1,5 @@
 import { CustomAuthorizerHandler, CustomAuthorizerResult } from 'aws-lambda';
+
 const { ENV } = process.env;
 
 export const buildIAM = (principalId: string, effect: string, resource: string): CustomAuthorizerResult => {
@@ -27,7 +28,7 @@ const execute: CustomAuthorizerHandler = async (event, _context, callback) => {
       const index = methodArn.split(`/${ENV}/`)[0].lastIndexOf('/');
       const arn = `${methodArn.substring(0, index)}/*`;
       const effect = 'Allow';
-      const policyId = '123456';
+      const policyId = new Date().toString();
       // Give the Lambda an opportunity to execute
       return buildIAM(policyId, effect, arn);
     }
