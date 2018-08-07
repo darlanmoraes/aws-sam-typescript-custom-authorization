@@ -4,6 +4,7 @@ This application is built on top of AWS SAM and runs over HTTP with AWS API Gate
 To run this you will need a pair with AWS Access Key + AWS Access Key Id.
 
 ## DEPLOY EVERYTHING
+```
 ENV=development \
 LAMBDA=comments \
 BUCKET=<your-custom-bucket> \
@@ -11,8 +12,10 @@ REGION=<your-region> \
 ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 npm run aws:deploy
+```
 
 ## DEPLOY JUST DYNAMODB
+```
 ENV=development \
 LAMBDA=comments \
 BUCKET=<your-custom-bucket> \
@@ -20,16 +23,20 @@ REGION=<your-region> \
 ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 npm run aws:dynamodb:deploy
+```
 
 ## DEPLOY JUST LAMBDAS
+```
 ENV=development \
 BUCKET=<your-custom-bucket> \
 REGION=<your-region> \
 ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 npm run aws:lambdas:deploy
+```
 
 ## DEPLOY JUST GATEWAY
+```
 ENV=development \
 LAMBDA=comments \
 BUCKET=<your-custom-bucket> \
@@ -37,6 +44,7 @@ REGION=<your-region> \
 ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 npm run aws:gateway:deploy
+```
 
 ## Create Comment
 ```
