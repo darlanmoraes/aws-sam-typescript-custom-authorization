@@ -4,6 +4,19 @@ basePath:
 info:
   title:
     Fn::Sub: ${Stage}-aws-sam-typescript-custom-authorization
+securityDefinitions:
+  CustomAuthorizer:
+    type: apiKey
+    name: Authorization
+    in: header
+    x-amazon-apigateway-authtype: custom
+    x-amazon-apigateway-authorizer:
+      type: token
+      authorizerUri: 
+        Fn::Sub: "arn:aws:apigateway:${Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${Region}:${AWS::AccountId}:function:${Stage}-AuthorizerLambda/invocations"
+      authorizerCredentials:
+        Fn::Sub: ${ApiGatewayAuthorizerRole.Arn}
+      authorizerResultTtlInSeconds: 60
 schemes:
 - https
 paths:
@@ -11,6 +24,8 @@ paths:
     get:
       produces:
       - application/json
+      security:
+        - CustomAuthorizer: []
       responses:
         '200':
           description: 200 response
@@ -30,6 +45,8 @@ paths:
       - application/json
       produces:
       - application/json
+      security:
+        - CustomAuthorizer: []
       responses:
         '201':
           description: 201 response

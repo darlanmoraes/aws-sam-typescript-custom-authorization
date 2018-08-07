@@ -20,6 +20,31 @@ Globals:
     Runtime: nodejs8.10
     Timeout: 180
 Resources:
+  AuthorizerLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/lambdas/authorizer/handler.execute
+      CodeUri:
+        Bucket: !Ref Bucket
+        Key: !Join [ "", [ "sam/", !Ref Stage, "/", !Ref Hash, "-lambda-authorizer.zip"] ]
+      FunctionName: !Join [ "", [ !Ref Stage, "-AuthorizerLambda"] ]
+      Role:
+        Fn::Sub: ${AuthorizerLambdaRole.Arn}
+  AuthorizerLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Effect: "Allow"
+            Principal: 
+              Service: 
+                - "lambda.amazonaws.com"
+            Action: 
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
   CommentsLambda:
     Type: AWS::Serverless::Function
     Properties:

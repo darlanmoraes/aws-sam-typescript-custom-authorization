@@ -16,6 +16,16 @@ ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 npm run aws:lambdas:package:deploy
 
+# DEPLOY JUST GATEWAY
+ENV=development \
+LAMBDA=comments \
+BUCKET=sam-custom-authorization-bucket \
+REGION=sa-east-1 \
+ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+npm run aws:gateway:deploy
+
+
 ## Create Comment
 ```
 curl -X POST -v \
@@ -24,7 +34,7 @@ curl -X POST -v \
 -d "{
   \"comment\": \"Comment: $(uuid)\"
 }" \
-'https://<account_id>.execute-api.sa-east-1.amazonaws.com/development/comments'
+'https://thxe67lw63.execute-api.sa-east-1.amazonaws.com/development/comments'
 ```
 
 ## List Comments
@@ -32,7 +42,7 @@ curl -X POST -v \
 curl -X GET -v \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
-'https://<account_id>.execute-api.sa-east-1.amazonaws.com/development/comments' | jq .
+'https://thxe67lw63.execute-api.sa-east-1.amazonaws.com/development/comments' | jq .
 ```
 
 ## Create Post
@@ -43,7 +53,7 @@ curl -X POST -v \
 -d "{
   \"post\": \"Post: $(uuid)\"
 }" \
-'https://<account_id>.execute-api.sa-east-1.amazonaws.com/development/posts'
+'https://thxe67lw63.execute-api.sa-east-1.amazonaws.com/development/posts'
 ```
 
 ## List Posts
@@ -51,5 +61,5 @@ curl -X POST -v \
 curl -X GET -v \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
-'https://<account_id>.execute-api.sa-east-1.amazonaws.com/development/posts' | jq .
+'https://thxe67lw63.execute-api.sa-east-1.amazonaws.com/development/posts' | jq .
 ```

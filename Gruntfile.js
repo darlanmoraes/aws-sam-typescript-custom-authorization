@@ -42,6 +42,7 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     compress: {
+      authorizer: compress('authorizer'),
       comments: compress('comments'),
       posts: compress('posts')
     }
