@@ -3,7 +3,7 @@ This application is built on top of AWS SAM and runs over HTTP with AWS API Gate
 
 To run this you will need a pair with AWS Access Key + AWS Access Key Id.
 
-## DEPLOY EVERYTHING
+### DEPLOY EVERYTHING
 ```
 ENV=development \
 LAMBDA=comments \
@@ -14,7 +14,7 @@ SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 npm run aws:deploy
 ```
 
-## DEPLOY JUST DYNAMODB
+### DEPLOY JUST DYNAMODB
 ```
 ENV=development \
 LAMBDA=comments \
@@ -25,7 +25,7 @@ SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 npm run aws:dynamodb:deploy
 ```
 
-## DEPLOY JUST LAMBDAS
+### DEPLOY JUST LAMBDAS
 ```
 ENV=development \
 BUCKET=<your-custom-bucket> \
@@ -35,7 +35,7 @@ SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 npm run aws:lambdas:deploy
 ```
 
-## DEPLOY JUST GATEWAY
+### DEPLOY JUST GATEWAY
 ```
 ENV=development \
 LAMBDA=comments \
@@ -46,7 +46,7 @@ SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 npm run aws:gateway:deploy
 ```
 
-## Create Comment
+### Create Comment
 ```
 curl -X POST -v \
 -H 'Content-Type: application/json' \
@@ -57,7 +57,7 @@ curl -X POST -v \
 'https://<generated-gateway-id>.execute-api.<your-region>.amazonaws.com/development/comments'
 ```
 
-## List Comments
+### List Comments
 ```
 curl -X GET -v \
 -H 'Content-Type: application/json' \
@@ -65,7 +65,7 @@ curl -X GET -v \
 'https://<generated-gateway-id>.execute-api.<your-region>.amazonaws.com/development/comments' | jq .
 ```
 
-## Create Post
+### Create Post
 ```
 curl -X POST -v \
 -H 'Content-Type: application/json' \
@@ -76,7 +76,7 @@ curl -X POST -v \
 'https://<generated-gateway-id>.execute-api.<your-region>.amazonaws.com/development/posts'
 ```
 
-## List Posts
+### List Posts
 ```
 curl -X GET -v \
 -H 'Content-Type: application/json' \
